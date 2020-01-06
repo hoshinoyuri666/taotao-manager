@@ -5,10 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>淘淘商城后台</title>
+<script src="${pageContext.request.contextPath }/js/jquery-2.1.0.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/layui/css/layui.css">
+<script src="${pageContext.request.contextPath }/layui/layui.js"></script>
+<script src="${pageContext.request.contextPath }/js/index.js"></script>
 </head>
 <body class="layui-layout-body">
-	<div class="layui-layout layui-layout-admin">
+	<div class="layui-layout layui-layout-admin">-----
 		<div class="layui-header">
 			<div class="layui-logo">淘淘商城后台</div>
 			<!-- 头部区域（可配合layui已有的水平导航） -->
@@ -33,6 +36,7 @@
 			<div class="layui-side-scroll">
 				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 				<ul class="layui-nav layui-nav-tree" lay-filter="test">
+					<br/>
 					<li class="layui-nav-item"><a class="" href="javascript:;">商品管理</a>
 						<dl class="layui-nav-child">
 							<dd>
@@ -45,7 +49,7 @@
 								<a id="addItem" href="javascript:;">商品添加</a>
 							</dd>
 							<dd>
-								<a id="showItem" href="javascript:;">商品查询</a>
+								<a id="showItem" >商品查询</a>
 							</dd>
 							<dd>
 								<a href="javascript:;">商品规格参数模板添加</a>
@@ -113,7 +117,10 @@
 			<!-- 内容主体区域
 				 $("#content").load("/jsp/showItem.jsp");
 			 -->
-			<div id="content" style="padding: 15px;">内容主体区域</div>
+			<div id="content" style="padding: 15px;">
+			<br/>
+			内容主体区域
+			</div>
 		</div>
 
 		<div class="layui-footer">
@@ -121,23 +128,7 @@
 			© 欢迎来到淘淘商城后台管理系统
 		</div>
 	</div>
-	<script src="${pageContext.request.contextPath }/layui/layui.js"></script>
-	<script src="${pageContext.request.contextPath }/js/jquery-2.1.0.min.js"></script>
-
-	<script>
-		//JavaScript代码区域
-		layui.use('element', function(){
-		  var element = layui.element;
-		  
-		});
-		$("#showItem").click(function(){
-			//jquery的load()方法从服务器加载数据，并把返回的数据放置到指定的元素中。
-			$("#content").load("/jsp/showItem.jsp");
-		})
-		$("#addItemCat").click(function(){
-			$("#content").load("/jsp/addItemCat.jsp");
-		})
-	</script>
 	
+
 </body>
 </html>
