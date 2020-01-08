@@ -4,31 +4,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>商品展示页面</title>
+<title>搜索商品展示页面</title>
 
 </head>
 <body>
-	<br/>
-	
+	<div>
+		<br/>
+		<input class="layui-input" placeholder="请输入商品名称" type="text" id="searchContent" />
+		<button type="button" class="layui-btn" id="search">
+		  <i class="layui-icon">&#xe615;</i> 搜索
+		</button>
+	</div>
 	<table class="layui-hide" id="showItemPage" lay-filter="itemToolBar"></table>
 	
 	<!-- display: none先默认隐藏 -->
 	<div id="toolbarDemo" style="display: none;"  class="layui-btn-container">
-		<div class="layui-input-inline">
-			<input class="layui-input" placeholder="请输入商品名称" type="text" id="searchContent" />
-		</div>
-		<div class="layui-input-inline" style="width:157px;">
-		  <select name="price" id="price">
-			<option value='' selected>请选择价格区间</option>
-			<option value='0'>0-10000</option>
-			<option value='10000'>10000-50000</option>
-			<option value='50000'>>50000</option>
-		  </select>
-		</div>
-		<button type="button" class="layui-btn" lay-event="search">
-			  <i class="layui-icon">&#xe615;</i> 搜索
-		</button>
-	<br/><br/>
 		<!-- 要批量删除或者上架下架步骤：
 		1.先获取选中的数据 2.自己写ajax请求 发送到服务器 3.服务器controller接收参数
 		4.controller调用service 5.service调用dao 6.controller回传一个json告诉用户成功还是失败 -->
@@ -64,8 +54,9 @@
 			*/
 			table.render({
 				elem : '#showItemPage',//绑定哪个table表 可以以id选择器绑定 可以以class选择器 还可以以 name选择器
-				url : '/item/showItemPage',//请求服务器的url路径 默认会自动传递两个参数：?page=1&limit=30（该参数可通过 request 自定义） page 代表当前页码、limit 代表每页数据量
-				toolbar : '#toolbarDemo' ,//开启头部工具栏，并为其绑定左侧模板
+				url : '/item/showSearchPage',//请求服务器的url路径 默认会自动传递两个参数：?page=1&limit=30（该参数可通过 request 自定义） page 代表当前页码、limit 代表每页数据量
+				toolbar : '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+				,
 				defaultToolbar : [ 'filter', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
 					layEvent : 'LAYTABLE_TIPS',
 					icon : 'layui-icon-tips'
@@ -84,11 +75,11 @@
 				}, {
 					field : 'title',
 					title : '商品名称',
-					width : 260
+					width : 100
 				}, {
 					field : 'sellPoint',
 					title : '商品卖点',
-					width : 120
+					width : 100
 				}, {
 					field : 'price',
 					title : '商品价格',
@@ -189,28 +180,16 @@
 					            }
 					        });
 				      break;
-			      case 'search':
-			    	  var searchContent = $("#searchContent").val();
-			    	  var price = $("#price").val();
-			    	   table.reload('showItemPage', {
-			    	    url: "/item/search"
-			    	    ,where: {
-			    	    	searchContent : searchContent,
-			    	    	price : price
-			    	    }
-			    	    ,page: {
-			    	     curr: 1
-			    	    }
-			    	   });
-			    	  break;
+			    
 			    };
 			  });
-			/*  $("#search").click(function(){
+
+			 $("#search").click(function(){
 				 //layer.alert('加了个图标', {icon: 1}); 
 				 var searchContent = $("#searchContent").val();
 				 //layer.alert(searchContent);
 				 location.href = "/item/search/"+searchContent;
-			 }) */
+			 })
 			
 		});
 		

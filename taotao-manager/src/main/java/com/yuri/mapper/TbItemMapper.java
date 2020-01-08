@@ -27,4 +27,21 @@ public interface TbItemMapper {
 	 * index 外界传进来的参数
 	 */
 	List<TbItem> findTbItemByPage(@Param("index") Integer index,@Param("pageSize") Integer pageSize);
+	/**
+	 * 根据商品id删除商品信息
+	 * @param ids
+	 * @return 如果返回的数据大于0表示删除成功
+	 */
+	int deleteItemByIds(@Param("ids") List<Long> ids);//写了@Param不用写parameterType
+	/**
+	 * 上架下架和删除方法 但是这个删除不是真的删除数据而是修改商品状态
+	 * @param ids
+	 * @param type
+	 * @return 如果返回的数据大于0表示修改成功
+	 */
+	int updateItemByIds(@Param("ids") List<Long> ids,@Param("type") Integer type);
+	
+	List<TbItem> searchByKeyWord(@Param("keyWord") String keyWord,@Param("price") Long price);
+	
+	List<TbItem> searchByKeyWordByPage(@Param("keyWord") String keyWord,@Param("price") Long price,@Param("index") Integer index,@Param("pageSize") Integer pageSize);
 }
