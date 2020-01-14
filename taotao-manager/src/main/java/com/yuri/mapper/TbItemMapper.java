@@ -1,5 +1,6 @@
 package com.yuri.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -39,9 +40,36 @@ public interface TbItemMapper {
 	 * @param type
 	 * @return 如果返回的数据大于0表示修改成功
 	 */
-	int updateItemByIds(@Param("ids") List<Long> ids,@Param("type") Integer type);
+	int updateItemByIds(@Param("ids") List<Long> ids,@Param("type") Integer type,@Param("date") Date date);
 	
 	List<TbItem> searchByKeyWord(@Param("keyWord") String keyWord,@Param("price") Long price);
 	
 	List<TbItem> searchByKeyWordByPage(@Param("keyWord") String keyWord,@Param("price") Long price,@Param("index") Integer index,@Param("pageSize") Integer pageSize);
+	
+	int findTbItemCountBySearch(@Param("title") String title, @Param("minPrice") Integer minPrice, @Param("maxPrice") Integer maxPrice, @Param("cId") Long cId);
+	
+	/**
+	 * 多条件查询商品信息并且分页显示
+	 * @param index 开始索引 默认值为0
+	 * @param pageSize 每一页显示的条数 默认值为10
+	 * @param title 商品名称
+	 * @param minPrice 商品最低价格 默认值为0
+	 * @param maxPrice 商品最高价格 默认值为 100000
+	 * @param cId 商品分类id
+	 * @return 分页显示的商品信息
+	 */
+	List<TbItem> findTbItemBySearchPage(@Param("index") Integer index,@Param("pageSize") Integer pageSize,@Param("title") String title, @Param("minPrice") Integer minPrice, @Param("maxPrice") Integer maxPrice, @Param("cId") Long cId);
+	
+	/**
+	 * 根据已有商品获得其小分类id
+	 * @return
+	 */
+	List<TbItem> statisticsItemCId();
+	
+	/**
+	 * 根据分类id查询商品表中该分类的商品数量
+	 * @param cid
+	 * @return
+	 */
+	int findTbItemCountByCId(@Param("cId")Long cId);
 }

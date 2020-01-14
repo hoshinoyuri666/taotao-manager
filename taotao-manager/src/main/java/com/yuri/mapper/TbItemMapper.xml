@@ -24,46 +24,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 	</delete>
 	<update id="updateItemByIds">
-		UPDATE tbitem SET `status` = #{type}
+		UPDATE tbitem SET `status` = #{type},updated = #{date}
 		<where>
 			<foreach collection="ids" open="id in(" separator="," close=")" item="id">
 				#{id}
 			</foreach>
 		</where>
 	</update>
-	<select id="searchByKeyWord" resultType="com.yuri.bean.TbItem">
-		SELECT * FROM tbitem
-		<where>
-			<if test="keyWord!= null and keyWord!=''">
-				and title LIKE "%"#{keyWord}"%"
-			</if>
-			<if test="price!=null and price==0">
-				and price BETWEEN 0 and 10000
-			</if>
-			<if test="price!=null and price==10000">
-				and price BETWEEN 10000 and 50000
-			</if>
-			<if test="price!=null and price==50000">
-				and price >50000
-			</if>
-		</where>
+	<select id="findTbItemCountBySearch" resultType="int">
+		SELECT COUNT(*) FROM tbitem WHERE price BETWEEN #{minPrice} AND #{maxPrice}
+		<if test="title!=''">
+			AND title LIKE '%${title}%'
+		</if>
+		<if test="cId!=null">
+			AND cId = #{cId}
+		</if>
 	</select>
-	<select id="searchByKeyWordByPage" resultType="com.yuri.bean.TbItem">
-		SELECT * FROM tbitem
-		<where>
-			<if test="keyWord!= null and keyWord!=''">
-				and title LIKE "%"#{keyWord}"%"
-			</if>
-			<if test="price!=null and price==0">
-				and price BETWEEN 0 and 10000
-			</if>
-			<if test="price!=null and price==10000">
-				and price BETWEEN 10000 and 50000
-			</if>
-			<if test="price!=null and price==50000">
-				and price >50000
-			</if>
-		</where>
+	<select id="findTbItemBySearchPage" resultType="com.yuri.bean.TbItem">
+		SELECT * FROM tbitem  WHERE price BETWEEN #{minPrice} AND #{maxPrice} 
+		<if test="title!=''">
+			AND title LIKE '%${title}%'
+		</if>
+		<if test="cId!=null">
+			AND cId = #{cId}
+		</if>
 		LIMIT #{index},#{pageSize}
+	</select>
+	<select id="statisticsItemCId" resultType="com.yuri.bean.TbItem">
+		SELECT * FROM tbitem GROUP BY cId
+	</select>
+	<select id="findTbItemCountByCId" resultType="int">
+		SELECT COUNT(*) FROM tbitem WHERE cId = #{cId}
 	</select>
 </mapper>

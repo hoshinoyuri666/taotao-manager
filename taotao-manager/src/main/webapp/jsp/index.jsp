@@ -7,8 +7,9 @@
 <title>淘淘商城后台</title>
 <script src="${pageContext.request.contextPath }/js/jquery-2.1.0.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/layui/css/layui.css">
-<script src="${pageContext.request.contextPath }/layui/layui.js"></script>
+<script src="${pageContext.request.contextPath  }/layui/layui.js"></script>
 <script src="${pageContext.request.contextPath }/js/index.js"></script>
+<script src="${pageContext.request.contextPath }/js/echarts-en.common.min.js"></script>
 </head>
 <body class="layui-layout-body">
 	<div class="layui-layout layui-layout-admin">-----
@@ -117,9 +118,90 @@
 			<!-- 内容主体区域
 				 $("#content").load("/jsp/showItem.jsp");
 			 -->
-			<div id="content" style="padding: 15px;">
-			<br/>
-			内容主体区域
+			 <!-- 内容主体区域 -->
+				<div id="content"> <!--  style="background-color: #F2F2F2; height: 100%" -->
+				<div style="padding: 20px; background-color: #F2F2F2;">
+					<div class="layui-row layui-col-space15"><!-- layui-col-space15代表列之间间隔 15px -->
+						<div class="layui-col-md3">
+							<div class="layui-card">
+								<div class="layui-card-header">
+									<div>
+										<span>访问量</span>
+										<span><font style="background: blue;color: white;padding: 2px 5px;">周</font></span>
+									</div>
+								</div>
+								<div class="layui-card-body">
+									<span style="font-size: 36px; color: #676767">99999</span></br> </br> <span
+										style="color: #676767">总访问量</span>
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md3">
+							<div class="layui-card">
+								<div class="layui-card-header">
+									<div>
+										<span>每天收入</span> <span class="layui-badge">天</span>
+									</div>
+
+								</div>
+								<div class="layui-card-body">
+									<span style="font-size: 36px; color: #676767">6666</span></br> </br> <span
+										style="color: #676767">总收入</span>
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md3">
+							<div class="layui-card">
+								<div class="layui-card-header">
+									<div>
+										<span>用户总数</span> <span class="layui-badge layui-bg-green">月</span>
+									</div>
+
+								</div>
+								<div class="layui-card-body">
+									<span style="font-size: 36px; color: #676767">9666</span></br> </br> <span
+										style="color: #676767">总用户数</span>
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md3">
+							<div class="layui-card">
+								<div class="layui-card-header">
+									<div>
+										<span>新增用户</span> <span class="layui-badge">天</span>
+									</div>
+
+								</div>
+								<div class="layui-card-body">
+									<span style="font-size: 36px; color: #676767">668</span></br> </br> <span
+										style="color: #676767">新增人数</span>
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md12">
+							<div class="layui-col-md6">
+								<div class="layui-card">
+									<div class="layui-card-header">商品分类统计</div>
+									<div class="layui-card-body">
+										 <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+										<div id="echartsMain1" style="width: 800px;height:560px;"></div>
+									</div>
+							</div>
+							</div>
+							<div class="layui-col-md6">
+								<div class="layui-card">
+									<div class="layui-card-header">商品分类统计</div>
+									<div class="layui-card-body">
+										<div id="echartsMain2" style="width: 800px;height:560px;"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+				</div>
+
 			</div>
 		</div>
 
@@ -129,6 +211,45 @@
 		</div>
 	</div>
 	
+	<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart1 = echarts.init(document.getElementById('echartsMain1'));
+
+       	// 指定图表的配置项和数据var option = {}
+       	// 异步请求数据
+       	// setOption使用刚指定的配置项和数据显示图表。
+       	 $.get('/itemCat/statisticsItemCat').done(function (result) {
+            myChart1.setOption({
+            	title : {
+    				text : '商品分类统计',
+    				left : 'center'
+    			},
+    			tooltip : {
+    				trigger : 'item',
+    				formatter : '{a} <br/>{b} : {c} ({d}%)'
+    			},
+    			legend : {
+    				orient : 'vertical',
+    				left : 'left',
+    				data : result.name
+    			},
+    			series : [ {
+    				name : '访问来源',
+    				type : 'pie',
+    				radius : '72%',
+    				center : [ '50%', '60%' ],
+    				data : result,
+    				emphasis : {
+    					itemStyle : {
+    						shadowBlur : 10,
+    						shadowOffsetX : 0,
+    						shadowColor : 'rgba(0, 0, 0, 0.5)'
+    					}
+    				}
+    			} ]
+            });
+        })
+	</script>
 
 </body>
 </html>

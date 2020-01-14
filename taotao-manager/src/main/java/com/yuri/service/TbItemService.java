@@ -1,5 +1,6 @@
 package com.yuri.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.yuri.bean.TbItem;
@@ -43,11 +44,20 @@ public interface TbItemService {
 	 * 上架下架和删除方法 但是这个删除不是真的删除数据而是修改商品状态
 	 * @param items 需要修改状态的商品信息集合对象 但是我们只要id
 	 * @param type 1代表上架 0代表下架 2代表删除
+	 * @param date 代表更新时间
 	 * @return
 	 */
-	TaotaoResult updateItems(List<TbItem> items,Integer type);
-	
-	List<TbItem> searchByKeyWord(String keyWord,Long price);
-	
-	LayuiTableResult searchByKeyWordByPage(String keyWord,Long price,Integer page,Integer limit);
+	TaotaoResult updateItems(List<TbItem> items,Integer type,Date date);
+
+	/**
+	 * 多条件查询商品信息
+	 * @param page 开始索引 一开始为第一页 默认值为1
+	 * @param limit 每一页显示的记录条数 默认值为10
+	 * @param title 商品名称 如果页面不传入参数默认值为""空字符串
+	 * @param minPrice 商品价格区间最低价 如果页面不传入参数默认值为null
+	 * @param maxPrice 商品价格区间最高价 如果页面不传入参数默认值为null
+	 * @param cId 商品分类id 如果页面不传入参数入参数默认值为null
+	 * @return layui需要的json格式对象
+	 */
+	LayuiTableResult searchItems(Integer page, Integer limit, String title, Integer minPrice, Integer maxPrice, Long cId);
 }

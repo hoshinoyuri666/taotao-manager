@@ -1,6 +1,7 @@
 package com.yuri.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,30 +45,31 @@ public class TbItemController {
 	@ResponseBody
 	public TaotaoResult deleteItemById(@RequestBody List<TbItem> items){
 		//TaotaoResult result = tbItemService.deleteItemByIds(items);
-		TaotaoResult result = tbItemService.updateItems(items,2);
+		Date date = new Date();
+		TaotaoResult result = tbItemService.updateItems(items,2,date);
 		return result;
 	}
 	
 	@RequestMapping("/upshelf")
 	@ResponseBody
 	public TaotaoResult upshelf(@RequestBody List<TbItem> items){
-		TaotaoResult result = tbItemService.updateItems(items,1);
+		Date date = new Date();
+		TaotaoResult result = tbItemService.updateItems(items,1,date);
 		return result;
 	}
 	
 	@RequestMapping("/offshelf")
 	@ResponseBody
 	public TaotaoResult offshelf(@RequestBody List<TbItem> items){
-		TaotaoResult result = tbItemService.updateItems(items,0);
+		Date date = new Date();
+		TaotaoResult result = tbItemService.updateItems(items,0,date);
 		return result;
 	}
 	
 	@RequestMapping("/search")
 	@ResponseBody
-	public LayuiTableResult search(String searchContent,Long price,Integer page,Integer limit) throws Exception{
-		byte[] bytes = searchContent.getBytes("iso-8859-1");
-		searchContent = new String(bytes, "utf-8");
-		LayuiTableResult result = tbItemService.searchByKeyWordByPage(searchContent,price,page, limit);
+	public LayuiTableResult search(Integer page,Integer limit,String title,Integer minPrice,Integer maxPrice,Long cId){
+		LayuiTableResult result = tbItemService.searchItems(page,limit,title,minPrice,maxPrice,cId);
 		return result;
 	}
 }

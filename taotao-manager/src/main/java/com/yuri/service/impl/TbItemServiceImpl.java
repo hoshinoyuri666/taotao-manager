@@ -1,6 +1,7 @@
 package com.yuri.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,12 +56,12 @@ public class TbItemServiceImpl implements TbItemService {
 	}
 
 	@Override
-	public TaotaoResult updateItems(List<TbItem> items, Integer type) {
+	public TaotaoResult updateItems(List<TbItem> items, Integer type,Date date) {
 		List<Long> ids = new ArrayList<Long>();
 		for (TbItem item : items) {
 			ids.add(item.getId());
 		}
-		int count = tbItemMapper.updateItemByIds(ids, type);
+		int count = tbItemMapper.updateItemByIds(ids, type,date);
 		if(count>0&&type==0){
 			return TaotaoResult.build(200, "商品下架成功");
 		}else if(count>0&&type==1){
@@ -72,24 +73,28 @@ public class TbItemServiceImpl implements TbItemService {
 	}
 
 	@Override
-	public List<TbItem> searchByKeyWord(String keyWord,Long price) {
-		List<TbItem> items = tbItemMapper.searchByKeyWord(keyWord,price);
-		return items;
-	}
-
-	@Override
-	public LayuiTableResult searchByKeyWordByPage(String keyWord, Long price, Integer page, Integer limit) {
+	public LayuiTableResult searchItems(Integer page, Integer limit, String title, Integer minPrice, Integer maxPrice,
+			Long cId) {
+		//在java中判断 我们是在内存中判断 没有在sql语句中判断 这样性能高一点
+		if(minPrice==null){
+			minPrice = 0;
+		}
+		if(maxPrice==null){
+			maxPrice = 10000000; 
+		}
 		LayuiTableResult result = new LayuiTableResult();
 		result.setCode(0);
-		result.setMsg("");
-		List<TbItem> items = searchByKeyWord(keyWord,price);
-		int count = 0;
-		for (TbItem tbItem : items) {
-			count++;
+		int count = tbItemMapper.findTbItemCountBySearch(title,minPrice,maxPrice,cId);
+		if(count<=0){
+			result.setMsg("没有商品信息");
+			return result;
 		}
+		result.setMsg("");
 		result.setCount(count);
-		//分页的集合对象
-		List<TbItem> data = tbItemMapper.searchByKeyWordByPage(keyWord,price,(page-1)*limit, limit);
+		List<TbItem> data = tbItemMapper.findTbItemBySearchPage((page-1)*limit, limit,title,minPrice,maxPrice,cId);
+		/**
+		 * 因为查询条件确定不了 所以 我们的总记录条数 包括 根据条件查询的商品信息 也确定不了
+		 */
 		result.setData(data);
 		return result;
 	}
