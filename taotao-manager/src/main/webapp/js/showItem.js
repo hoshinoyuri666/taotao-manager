@@ -189,10 +189,11 @@ $(function(){
 				area: ['380px', '90%'],
 				content: '/jsp/showZtree.jsp', 
 				btn: ['确定','取消'], //按钮
-				/* success:function (layero,index) {
-				     var iframe = window['layui-layer-iframe' + index];
-				     iframe.child('showItem.jsp');
-				} */
+				//主窗口向Iframe层传值
+				success:function (layero,index) {
+				     var iframe = window['layui-layer-iframe' + index]; //获取子页面的iframe
+				     iframe.child('showItem.jsp');//向子页面的全局函数child传参
+				}
 			}); 
 		})
 	});

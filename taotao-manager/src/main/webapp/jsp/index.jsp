@@ -21,13 +21,15 @@
 			<div class="layui-logo">淘淘商城后台</div>
 			<!-- 头部区域（可配合layui已有的水平导航） -->
 			<ul class="layui-nav layui-layout-left">
-				<li class="layui-nav-item"><a href="${pageContext.request.contextPath}">回到首页</a></li>
+				<li class="layui-nav-item"><a href="${pageContext.request.contextPath}">回到首页<i class="layui-icon layui-icon-home"></i></a></li>
 			</ul>
 
 			<ul class="layui-nav layui-layout-right">
-				<li class="layui-nav-item"><a href="javascript:;"> <img
-						src="http://t.cn/RCzsdCq" class="layui-nav-img"> admin
-				</a>
+				<li class="layui-nav-item">
+					<a href="javascript:;">
+						<img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+						admin
+					</a>
 					<dl class="layui-nav-child">
 						<dd>
 							<a href="">个人中心</a>
@@ -195,7 +197,7 @@
 						<div class="layui-col-md12">
 							<div class="layui-col-md6">
 								<div class="layui-card">
-									<div class="layui-card-header">商品分类统计</div>
+									<div class="layui-card-header">商品分类统计<i style="color: #FF4500;" class="layui-icon layui-icon-survey"></i></div>
 									<div class="layui-card-body">
 										 <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
 										<div id="echartsMain1" style="width: 800px;height:560px;"></div>
@@ -204,7 +206,7 @@
 							</div>
 							<div class="layui-col-md6">
 								<div class="layui-card">
-									<div class="layui-card-header">当前位置</div>
+									<div class="layui-card-header">当前位置<i style="color: #FF4500;" class="layui-icon layui-icon-location"></i></div>
 									<div class="layui-card-body">
 										 <!-- 为 地图 准备一个具备大小（宽高）的 DOM -->
 										<div style="width: 800px;height: 560px" id="allmap"></div>

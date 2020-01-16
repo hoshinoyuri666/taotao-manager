@@ -58,18 +58,22 @@ public class TbItemServiceImpl implements TbItemService {
 	@Override
 	public TaotaoResult updateItems(List<TbItem> items, Integer type,Date date) {
 		List<Long> ids = new ArrayList<Long>();
-		for (TbItem item : items) {
-			ids.add(item.getId());
+		if(items!=null&&items.size()>0){
+			for (TbItem item : items) {
+				ids.add(item.getId());
+			}
+			int count = tbItemMapper.updateItemByIds(ids, type,date);
+			if(count>0&&type==0){
+				return TaotaoResult.build(200, "商品下架成功");
+			}else if(count>0&&type==1){
+				return TaotaoResult.build(200, "商品上架成功");
+			}else if(count>0&&type==2){
+				return TaotaoResult.build(200, "商品删除成功");
+			}
+			return TaotaoResult.build(500, "操作有误");
+		}else{
+			return TaotaoResult.build(500, "请先选中再执行操作哦");
 		}
-		int count = tbItemMapper.updateItemByIds(ids, type,date);
-		if(count>0&&type==0){
-			return TaotaoResult.build(200, "商品下架成功");
-		}else if(count>0&&type==1){
-			return TaotaoResult.build(200, "商品上架成功");
-		}else if(count>0&&type==2){
-			return TaotaoResult.build(200, "商品删除成功");
-		}
-		return TaotaoResult.build(500, "操作有误");
 	}
 
 	@Override
