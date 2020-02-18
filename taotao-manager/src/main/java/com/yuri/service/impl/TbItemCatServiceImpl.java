@@ -44,10 +44,10 @@ public class TbItemCatServiceImpl implements TbItemCatService{
 		List<TbItem> tbItems = tbItemMapper.statisticsItemCId();
 		for (TbItem tbItem : tbItems) {
 			EchartsResult result = new EchartsResult();
-			TbItemCat tbItemCat = tbItemCatMapper.getTbItemCatById(tbItem.getCid());
+			TbItemCat tbItemCat = tbItemCatMapper.getTbItemCatById(tbItem.getcId());
 			getFirstItemCat(tbItemCat);
 			result.setName(name+"类");
-			int value = tbItemMapper.findTbItemCountByCId(tbItem.getCid());
+			int value = tbItemMapper.findTbItemCountByCId(tbItem.getcId());
 			result.setValue(value);
 			results.add(result);
 		}

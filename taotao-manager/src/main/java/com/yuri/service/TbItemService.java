@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.yuri.bean.TbItem;
+import com.yuri.bean.TbItemParamValue;
 import com.yuri.common.LayuiTableResult;
 import com.yuri.common.TaotaoResult;
 
@@ -60,4 +61,13 @@ public interface TbItemService {
 	 * @return layui需要的json格式对象
 	 */
 	LayuiTableResult searchItems(Integer page, Integer limit, String title, Integer minPrice, Integer maxPrice, Long cId);
+
+	/**
+	 * 添加商品信息和商品描述信息和商品规格参数信息
+	 * @param item 商品基本信息
+	 * @param itemDesc 商品描述信息
+	 * @param tbItemParamValues 商品规格参数值集合数据
+	 * @return 如果为200则表示成功 如果失败 msg里面有失败的提示
+	 */
+	TaotaoResult saveItem(TbItem item, String itemDesc, List<TbItemParamValue> tbItemParamValues);
 }

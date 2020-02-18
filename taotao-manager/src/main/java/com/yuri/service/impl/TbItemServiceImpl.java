@@ -8,14 +8,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yuri.bean.TbItem;
+import com.yuri.bean.TbItemDesc;
+import com.yuri.bean.TbItemParamValue;
+import com.yuri.common.IDUtils;
 import com.yuri.common.LayuiTableResult;
 import com.yuri.common.TaotaoResult;
+import com.yuri.mapper.TbItemDescMapper;
 import com.yuri.mapper.TbItemMapper;
+import com.yuri.mapper.TbItemParamMapper;
 import com.yuri.service.TbItemService;
 @Service
 public class TbItemServiceImpl implements TbItemService {
 	@Autowired
 	private TbItemMapper tbItemMapper;
+	@Autowired
+	private TbItemDescMapper tbItemDescMapper;
+	@Autowired
+	private TbItemParamMapper tbItemParamMapper;
 	
 	@Override
 	public TbItem findTbItemById(Long tbItemId) {
@@ -101,6 +110,38 @@ public class TbItemServiceImpl implements TbItemService {
 		 */
 		result.setData(data);
 		return result;
+	}
+
+	@Override
+	public TaotaoResult saveItem(TbItem item, String desc, List<TbItemParamValue> tbItemParamValues) {
+		long itemId = IDUtils.genItemId();
+		item.setId(itemId);
+		item.setStatus((byte) 1);
+		Date date = new Date();
+		item.setCreated(date);
+		item.setUpdated(date);
+		int i = tbItemMapper.saveTbItem(item);
+		if(i<=0){
+			return TaotaoResult.build(500, "添加商品失败，商品基本信息填写有误");
+		}
+		TbItemDesc tbItemDesc = new TbItemDesc();
+		tbItemDesc.setItemId(itemId);
+		tbItemDesc.setItemDesc(desc);
+		tbItemDesc.setCreated(date);
+		tbItemDesc.setUpdated(date);
+		int j = tbItemDescMapper.saveTbItemDesc(tbItemDesc);
+		if(j<=0){
+			return TaotaoResult.build(500, "添加商品失败，商品描述信息填写有误");
+		}
+		//规格参数值的所有数据绑定完毕
+		for (TbItemParamValue tbItemParamValue : tbItemParamValues) {
+			tbItemParamValue.setItemId(itemId);
+		}
+		int z = tbItemParamMapper.saveTbItemParamValue(tbItemParamValues);
+		if(z<=0){
+			return TaotaoResult.build(500, "添加商品失败，商品规格参数信息填写有误");
+		}
+		return TaotaoResult.build(200, "添加商品成功");
 	}
 
 	

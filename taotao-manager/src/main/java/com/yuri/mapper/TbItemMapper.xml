@@ -4,6 +4,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.yuri.mapper.TbItemMapper">
+	<sql id="search">
+		<if test="title!=''">
+			AND title LIKE '%${title}%'
+		</if>
+		<if test="cId!=null">
+			AND cId = #{cId}
+		</if>
+	</sql>
 	<select id="findTbItemById" parameterType="long" resultType="com.yuri.bean.TbItem">
 		SELECT * FROM tbitem WHERE id = #{id}
 	</select>
@@ -33,21 +41,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	<select id="findTbItemCountBySearch" resultType="int">
 		SELECT COUNT(*) FROM tbitem WHERE price BETWEEN #{minPrice} AND #{maxPrice}
-		<if test="title!=''">
-			AND title LIKE '%${title}%'
-		</if>
-		<if test="cId!=null">
-			AND cId = #{cId}
-		</if>
+		<include refid="search"></include>
 	</select>
 	<select id="findTbItemBySearchPage" resultType="com.yuri.bean.TbItem">
 		SELECT * FROM tbitem  WHERE price BETWEEN #{minPrice} AND #{maxPrice} 
-		<if test="title!=''">
-			AND title LIKE '%${title}%'
-		</if>
-		<if test="cId!=null">
-			AND cId = #{cId}
-		</if>
+		<include refid="search"></include>
 		LIMIT #{index},#{pageSize}
 	</select>
 	<select id="statisticsItemCId" resultType="com.yuri.bean.TbItem">
@@ -56,4 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findTbItemCountByCId" resultType="int">
 		SELECT COUNT(*) FROM tbitem WHERE cId = #{cId}
 	</select>
+	<insert id="saveTbItem" parameterType="com.yuri.bean.TbItem">
+		INSERT INTO tbitem(id,title,sellPoint,price,num,barcode,image,cId,status,created,updated) VALUE(#{id},#{title},#{sellPoint},#{price},#{num},#{barcode},#{image},#{cId},#{status},#{created},#{updated})
+	</insert>
 </mapper>
