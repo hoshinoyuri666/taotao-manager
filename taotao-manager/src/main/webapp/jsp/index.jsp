@@ -62,7 +62,7 @@
 								<a id="showItem" >商品查询</a>
 							</dd>
 							<dd>
-								<a href="javascript:;">商品规格参数模板添加</a>
+								<a id="addParam" href="javascript:;">商品规格参数模板添加</a>
 							</dd>
 							<dd>
 								<a href="javascript:;">商品规格参数模板查询</a>

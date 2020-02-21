@@ -8,21 +8,25 @@
 <script src="${pageContext.request.contextPath }/js/jquery-2.1.0.min.js"></script>
 </head>
 <body>
-	<input type="button" id="button1" value="点我查询手机对应的规格参数组和项">
+
+	<input type="button" id="button1" value="创建规格组"/><br/>
+<div id="all">
+	<div class="divgroup">
+		<input type="text" name="group"/><input name="addgroupkey" type="button" value="添加规格项"/><br/>
+		|-----<input type="text" name="groupkey"/><br/>
+	</div>
+</div>
+
+	<input type="button" id="button2" value="点击我上传"/>
+	<script type="text/javascript">
+		$("#button1").click(function(){
+			$("#all").append("<div class='divgroup'><input type='text' name='group'/><input type='button' name='addgroupkey' value='添加规格项'/><br/></div>");
+			$(".divgroup").each(function(i,n){
+				$(n).find("input[name=addgroupkey]").click(function(){
+					$(n).append("|-----<input type='text'/><br/>");
+				})
+			})
+		});
+	</script>
 </body>
-<script type="text/javascript">
-$("#button1").click(function(){
-	$.ajax({
-			//get请求会中文乱码
-            type: "GET",
-            url: "/test",
-            //contentType: "application/json", //必须有  
-            dataType: "json", //表示返回值类型 
-            data: "itemCatId=560",
-            success: function (msg) {
-            	console.log(msg);
-            }
-	});
-})
-</script>
 </html>

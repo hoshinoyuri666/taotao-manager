@@ -21,4 +21,11 @@ public class TbItemGroupController {
 		System.out.println(result);
 		return result;
 	}
+	
+	@RequestMapping("/addGroup")
+	@ResponseBody
+	public TaotaoResult addItemParamTemplate(Long cId,String params){
+		TaotaoResult result = tbItemParamService.addItemParamTemplate(cId,params);
+		return result;
+	}
 }
