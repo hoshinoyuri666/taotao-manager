@@ -23,7 +23,7 @@ public class TbItemCatController {
 	@ResponseBody
 	public List<ZtreeNodeResult> showZtreeNode(@RequestParam(value="id", defaultValue="0")Long parentId) {
 		/**
-		 * @RequestParam注解用于指定 页面传递过来的参数名称 
+		 * @RequestParam 注解用于指定 页面传递过来的参数名称 
 		 * 页面传递过来id defaultValue如果页面传递过来的参数名字为id的 没有初始值 默认初始值为 0 即默认显示一级目录
 		 */
 		List<ZtreeNodeResult> result = tbItemCatService.findTbItemCatById(parentId);

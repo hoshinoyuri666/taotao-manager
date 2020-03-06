@@ -53,7 +53,7 @@
 								<a id="addItemCat" href="javascript:;">商品分类添加</a>
 							</dd>
 							<dd>
-								<a href="javascript:;">商品分类查询</a>
+								<a id="showCat" href="javascript:;">商品分类查询</a>
 							</dd>
 							<dd>
 								<a id="addItem" href="javascript:;">商品添加</a>
@@ -71,16 +71,10 @@
 					<li class="layui-nav-item"><a href="javascript:;">cms内容管理系统</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="javascript:;">cms内容模板添加</a>
+								<a href="javascript:;">内容分类管理</a>
 							</dd>
 							<dd>
-								<a href="javascript:;">cms内容模板查询</a>
-							</dd>
-							<dd>
-								<a href="javascript:;">cms内容添加</a>
-							</dd>
-							<dd>
-								<a href="javascript:;">cms内容查询</a>
+								<a id="showContent" href="javascript:;">内容管理</a>
 							</dd>
 						</dl></li>
 					<li class="layui-nav-item"><a href="javascript:;">订单管理</a>
@@ -221,7 +215,7 @@
 
 			</div>
 		</div>
-
+	
 		<div class="layui-footer">
 			<!-- 底部固定区域 -->
 			© 欢迎来到淘淘商城后台管理系统
@@ -251,7 +245,7 @@
     				data : result.name
     			},
     			series : [ {
-    				name : '访问来源',
+    				name : '商品占比',
     				type : 'pie',
     				radius : '72%',
     				center : [ '50%', '60%' ],

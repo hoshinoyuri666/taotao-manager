@@ -32,6 +32,8 @@ public class TbItemCatServiceImpl implements TbItemCatService{
 			ZtreeNodeResult node = new ZtreeNodeResult();
 			node.setId(tbItemCat.getId());
 			node.setName(tbItemCat.getName());
+			//数据库里tinyint类型的字段，值为0或者1 如果取出来的话，0会变成false，1会变成true
+			//因为Mybatis连接mysql查询tinyint型 默认返回值是boolean型所以不用再做转换
 			node.setIsParent(tbItemCat.getIsParent());
 			result.add(node);
 		}

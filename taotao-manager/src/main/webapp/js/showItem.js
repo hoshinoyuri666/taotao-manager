@@ -109,6 +109,9 @@ $(function(){
 					}
 				});
 				break;
+			case 'addItem':
+				window.location.href='/jsp/addItem.jsp';
+				break;
 			case 'upshelf':
 				var data = checkStatus.data;
 				$.ajax({

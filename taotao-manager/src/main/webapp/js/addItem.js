@@ -94,6 +94,7 @@ layui.use(['form', 'layedit', 'laydate','upload'], function(){
 			content : '/jsp/showZtree.jsp',
 			btn : [ '确定', '取消' ],
 			yes : function(layero, index) {
+				//jquery控制元素的隐藏和显示 $("#id").show()表示显示
 				$("#addItemSpan").show();
 				layer.close(layero);
 				var cId = $("#addItemId").val();

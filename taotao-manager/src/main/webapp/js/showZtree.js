@@ -7,7 +7,7 @@ $(function(){
 				autoParam : [ "id" ]//异步加载时需要自动提交父节点属性的参数。[setting.async.enable = true 时生效]
 			},
 			callback: {
-				onClick: zTreeOnClick
+				onClick: zTreeOnClick//用于捕获节点被点击的事件回调函数 即节点被点击后执行zTreeOnClick方法
 			}
 
 	};

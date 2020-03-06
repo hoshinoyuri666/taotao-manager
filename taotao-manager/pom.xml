@@ -189,8 +189,10 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.2</version>
 				<configuration>
+					<!-- maven默认jdk为1.5版本，配这个插件可以指定版本号 -->
 					<source>1.7</source>
 					<target>1.7</target>
+					<!-- 编码格式 -->
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>

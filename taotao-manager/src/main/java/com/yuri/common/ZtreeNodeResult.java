@@ -31,10 +31,8 @@ public class ZtreeNodeResult {
 
 	@Override
 	public String toString() {
-		return "ZTreeNode{" +
-				"id=" + id +
-				", name='" + name + '\'' +//杠？
-				", isParent=" + isParent +
-				'}';
+		return "ZtreeNodeResult [id=" + id + ", name=" + name + ", isParent=" + isParent + "]";
 	}
+
+	
 }

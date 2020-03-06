@@ -1,6 +1,8 @@
 package com.yuri.bean;
 
-public class TbItemParamKey {
+import java.io.Serializable;
+
+public class TbItemParamKey implements Serializable{
 	private Integer id;
 	private String paramName;
 	private Integer groupId;

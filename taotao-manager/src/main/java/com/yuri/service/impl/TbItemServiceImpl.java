@@ -114,6 +114,7 @@ public class TbItemServiceImpl implements TbItemService {
 
 	@Override
 	public TaotaoResult saveItem(TbItem item, String desc, List<TbItemParamValue> tbItemParamValues) {
+		//数据库id不是自增长，用工具类自动生成
 		long itemId = IDUtils.genItemId();
 		item.setId(itemId);
 		item.setStatus((byte) 1);
